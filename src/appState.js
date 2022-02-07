@@ -25,11 +25,28 @@ const initialState = {
 
 function todoReducer(state, action) {
   switch (action.type) {
-    case 'add':
+    case 'add': {
       const newTodo = { ...initialTodoItem, todo: action.payload };
       const todos = [newTodo, ...state.todos];
 
       return { ...state, todos: todos };
+    }
+
+    case 'done':
+      return { ...state };
+
+    case 'delete':
+      return { ...state };
+
+    case 'edit': {
+      const { payload: { index, todo } } = action;
+
+      const todos = [...state.todos];
+      todos[index].todo = todo;
+
+      return { ...state, todos: todos };
+    }
+
     default:
       return state;
   }
